@@ -290,24 +290,10 @@ No. The server accepts connections only from the PC it runs on.
 
 <a href="LICENSE.md"><img src="docs/license.svg" alt="PolyForm Noncommercial license. Use it, change it, share it, do not sell it." width="100%"></a>
 
-Play is source-available under the [PolyForm Noncommercial License 1.0.0](LICENSE.md): use, change, and share it for noncommercial purposes. The license covers Play itself; the libraries below keep their own licenses, and the YouTube Terms of Service still apply.
-
-<img src="docs/built.svg" alt="Built with yt-dlp, YouTube.js, Shaka Player, Express, Node.js, WebView2, WinForms, and Instrument Sans" width="100%">
+Play is source-available under the [PolyForm Noncommercial License 1.0.0](LICENSE.md): use, change, and share it for noncommercial purposes. The license covers Play itself; the libraries it uses keep their own licenses, and the YouTube Terms of Service still apply.
 
 <p align="center">
-  <a href="https://github.com/yt-dlp/yt-dlp">yt-dlp</a> ·
-  <a href="https://github.com/LuanRT/YouTube.js">YouTube.js</a> ·
-  <a href="https://github.com/shaka-project/shaka-player">Shaka Player</a> ·
-  <a href="https://expressjs.com">Express</a> ·
-  <a href="https://nodejs.org">Node.js</a> ·
-  <a href="https://developer.microsoft.com/microsoft-edge/webview2/">WebView2</a> ·
-  <a href="https://github.com/Instrument/instrument-sans">Instrument Sans</a>
-</p>
-
-<sub>The film, demos, and screenshots show open movies by the <a href="https://studio.blender.org/films/">Blender Foundation</a>, licensed CC BY: Big Buck Bunny, Sintel, Tears of Steel, Spring, Coffee Run, Sprite Fright, Charge, Agent 327, and Wing It!</sub>
-
-<p align="center">
-  <a href="https://github.com/Hiroyki/play/releases/latest"><img src="docs/outro.svg" alt="PLAY" width="100%"></a>
+  <a href="https://github.com/Hiroyki/play/releases/latest"><img src="docs/footer.webp" alt="Thumbnails rush past and assemble into the PLAY logo" width="100%"></a>
 </p>
 
 <p align="center">
@@ -316,4 +302,8 @@ Play is source-available under the [PolyForm Noncommercial License 1.0.0](LICENS
   <a href="#top"><img src="docs/btn-top.svg" alt="Back to top" height="38"></a>
 </p>
 
-<p align="center"><sub>Play is not affiliated with YouTube or Google.</sub></p>
+<p align="center"><sub>
+  Built with <a href="https://github.com/yt-dlp/yt-dlp">yt-dlp</a>, <a href="https://github.com/LuanRT/YouTube.js">YouTube.js</a>, <a href="https://github.com/shaka-project/shaka-player">Shaka Player</a>, <a href="https://expressjs.com">Express</a>, and <a href="https://github.com/Instrument/instrument-sans">Instrument Sans</a>.<br>
+  The film, demos, and screenshots show open movies by the <a href="https://studio.blender.org/films/">Blender Foundation</a>, licensed CC BY: Big Buck Bunny, Sintel, Tears of Steel, Spring, Coffee Run, Sprite Fright, Charge, Agent 327, and Wing It!<br>
+  Play is not affiliated with YouTube or Google.
+</sub></p>
