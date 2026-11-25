@@ -1,36 +1,31 @@
 <p align="center">
-  <img src="docs/banner.svg" alt="PLAY" width="100%">
-</p>
-
-<h3 align="center">A personal YouTube player without the ads.</h3>
-
-<p align="center">
-  <a href="https://github.com/Hiroyki/play/releases/latest"><img alt="Download for Windows" src="https://img.shields.io/badge/Download-Windows_x64-ffffff?style=for-the-badge&labelColor=000000"></a>
-  <img alt="Version 1.0.0" src="https://img.shields.io/badge/version-1.0.0-ffffff?style=for-the-badge&labelColor=000000">
-  <img alt="Up to 4K AV1" src="https://img.shields.io/badge/up_to-4K_AV1-ffffff?style=for-the-badge&labelColor=000000">
-  <img alt="No account needed" src="https://img.shields.io/badge/account-not_needed-ffffff?style=for-the-badge&labelColor=000000">
+  <img src="docs/cover.svg" alt="PLAY. YouTube, without the ads." width="100%">
 </p>
 
 <p align="center">
-  <a href="#see-it-move">See it move</a> ·
-  <a href="#what-you-get">What you get</a> ·
-  <a href="#install">Install</a> ·
-  <a href="#how-it-works">How it works</a> ·
-  <a href="#keyboard-shortcuts">Shortcuts</a> ·
-  <a href="#build">Build</a> ·
-  <a href="#questions">Questions</a>
+  <a href="https://github.com/Hiroyki/play/releases/latest"><img src="docs/btn-download.svg" alt="Download Play" height="52"></a>&nbsp;
+  <a href="#move"><img src="docs/btn-demo.svg" alt="See it move" height="52"></a>&nbsp;
+  <a href="#inside"><img src="docs/btn-inside.svg" alt="Look inside" height="52"></a>
 </p>
 
 <p align="center">
-  <img src="docs/intro.webp" alt="Intro film: the PLAY logo draws itself, opens into open movies, and shows the app" width="100%">
+  <img src="docs/intro.webp" alt="Intro film: the PLAY logo draws itself, opens into animated films, and shows the app" width="100%">
 </p>
 
-Play opens YouTube videos in its own window and plays the media stream directly, so pre-roll and mid-roll ads are never requested. It runs on one PC and keeps your data there.
+Play opens YouTube videos in its own window and plays the media stream directly, so pre-roll and mid-roll ads are never requested. It runs on one PC, keeps your data there, and needs no account.
 
 > [!IMPORTANT]
 > Play is for personal use. Fetching streams directly is against the YouTube Terms of Service, so do not host it publicly.
 
-## See it move
+<p align="center">
+  <img src="docs/numbers.svg" alt="0 ads requested. 4K in AV1 and H.264. 0 ms stall on quality switch. 60 KB app window." width="100%">
+</p>
+
+<p align="center">
+  <img src="docs/wall.webp" alt="A tilted wall of real Play screens scrolling past" width="100%">
+</p>
+
+<h2><a id="move"></a><img src="docs/t-move.svg" alt="See it move" width="100%"></h2>
 
 **The thumbnail becomes the player, and the player follows you.** Go back to browsing and the video shrinks into the corner without stopping.
 
@@ -40,11 +35,15 @@ Play opens YouTube videos in its own window and plays the media stream directly,
 
 <img src="docs/demo-player.webp" alt="Previews appear along the seek bar, then the quality menu switches to 2160p" width="100%">
 
-**Search from anywhere.** Press `/`, type, or paste a YouTube link.
+**Search from anywhere.** Press <kbd>/</kbd>, type, or paste a YouTube link.
 
 <img src="docs/demo-search.webp" alt="The search box opens, suggests titles, and shows results" width="100%">
 
-## What you get
+**Hover first, start sooner.** Play prepares a video while the pointer rests on it. The bars below move in real time and show the slowest start of each kind in testing.
+
+<img src="docs/race.svg" alt="Slowest start measured in testing: 1.6 seconds when you hover first, 12.6 seconds when you click cold" width="100%">
+
+<h2><a id="get"></a><img src="docs/t-get.svg" alt="What you get" width="100%"></h2>
 
 <table>
   <tr>
@@ -85,29 +84,9 @@ Play opens YouTube videos in its own window and plays the media stream directly,
   </tr>
 </table>
 
-| | Play |
-|---|---|
-| Pre-roll and mid-roll ads | Never requested |
-| Sponsor segments recorded by creators | Still play |
-| YouTube account | Not used |
-| Where your data lives | One JSON file on your PC |
-| Native window | `Play.exe`, 60 KB |
-| Installer | 36 MB, Node.js included |
-| Time to install | 6.2 seconds in testing |
+Sponsor segments that creators record into a video are part of the stream and still play.
 
-### Start times
-
-Play prepares a video when the pointer rests on it. Both bars show the slowest start measured in testing, in seconds.
-
-```mermaid
-xychart-beta
-  title "Seconds until the picture moves (lower is better)"
-  x-axis ["Prepared by hovering", "Clicked cold"]
-  y-axis "Seconds" 0 --> 14
-  bar [1.6, 12.6]
-```
-
-## Install
+<h2><a id="install"></a><img src="docs/t-install.svg" alt="Install" width="100%"></h2>
 
 1. Download `Play-Setup-<version>.exe` from [Releases](https://github.com/Hiroyki/play/releases/latest).
 2. Check that its SHA-256 matches the one in the release notes.
@@ -138,21 +117,16 @@ Open `http://localhost:4321`. This copy keeps its data in `data`, separate from 
 
 </details>
 
-## How it works
+<h2><a id="inside"></a><img src="docs/t-inside.svg" alt="Look inside" width="100%"></h2>
 
-```mermaid
-flowchart LR
-  subgraph PC["Your PC"]
-    W["Play.exe<br/>WinForms + WebView2"] -->|"http://localhost"| S["Local server<br/>Node.js"]
-    S --> D[("library.json")]
-    S --> Y["yt-dlp"]
-  end
-  S -->|"search, channels, comments"| M["YouTube"]
-  Y -->|"stream addresses"| M
-  S -->|"media, by byte range"| G["googlevideo.com"]
-```
+<img src="docs/route.svg" alt="Play.exe talks to a local server on your PC. The server uses yt-dlp and library.json, asks YouTube for search and channels, and relays media from googlevideo.com." width="100%">
 
-`Play.exe` starts the server on a loopback port and stops it on exit, even after a crash. What happens when you press play:
+`Play.exe` starts the server on a loopback port and stops it on exit, even after a crash. The server finds stream addresses with yt-dlp, reads the MP4 index, and serves a DASH manifest, so the player requests only the byte ranges it needs.
+
+<details>
+<summary><b>What happens when you press play</b></summary>
+
+<br>
 
 ```mermaid
 sequenceDiagram
@@ -174,6 +148,8 @@ sequenceDiagram
     G-->>P: Media, relayed
   end
 ```
+
+</details>
 
 <details>
 <summary><b>Privacy and security</b></summary>
@@ -220,7 +196,30 @@ sequenceDiagram
 
 </details>
 
-## Keyboard shortcuts
+<details>
+<summary><b>Build it yourself</b></summary>
+
+<br>
+
+The build uses `csc.exe`, the C# compiler included with Windows, and the `Microsoft.Web.WebView2` SDK from the NuGet cache. It stops if a WebView2 file is not signed by Microsoft.
+
+| Command | Output |
+|---|---|
+| `powershell -ExecutionPolicy Bypass -File windows\build.ps1` | `Play.exe` in the repository root |
+| `powershell -ExecutionPolicy Bypass -File windows\installer.ps1` | `dist\Play-Setup-<version>.exe` |
+
+The version comes from `package.json`. The installer script also stops if user data ends up in the package.
+
+</details>
+
+<h2><a id="keys"></a><img src="docs/t-keys.svg" alt="Keys" width="100%"></h2>
+
+<img src="docs/keys.svg" alt="Keyboard with shortcuts lighting up. Space or K plays, J and L jump, number keys jump through the video, F is full screen, T wide mode, I picture in picture, M mute, C subtitles, Shift N next, slash search." width="100%">
+
+<details>
+<summary><b>Every shortcut as a list</b></summary>
+
+<br>
 
 | Playback | | Navigation | |
 |---|---|---|---|
@@ -233,18 +232,9 @@ sequenceDiagram
 | <kbd>M</kbd> | Mute | <kbd>I</kbd> | Picture in picture |
 | <kbd>C</kbd> | Subtitles | <kbd>F5</kbd> <kbd>F11</kbd> | Reload, full screen, in the app |
 
-## Build
+</details>
 
-The build uses `csc.exe`, the C# compiler included with Windows, and the `Microsoft.Web.WebView2` SDK from the NuGet cache. It stops if a WebView2 file is not signed by Microsoft.
-
-| Command | Output |
-|---|---|
-| `powershell -ExecutionPolicy Bypass -File windows\build.ps1` | `Play.exe` in the repository root |
-| `powershell -ExecutionPolicy Bypass -File windows\installer.ps1` | `dist\Play-Setup-<version>.exe` |
-
-The version comes from `package.json`. The installer script also stops if user data ends up in the package.
-
-## Questions
+<h2><a id="faq"></a><img src="docs/t-faq.svg" alt="Questions" width="100%"></h2>
 
 <details>
 <summary><b>Why does a video sometimes take several seconds to start?</b></summary>
@@ -284,10 +274,8 @@ No. The server accepts connections only from the PC it runs on.
 
 </details>
 
-## Credits
+<p align="center">
+  <a href="https://github.com/Hiroyki/play/releases/latest"><img src="docs/outro.svg" alt="Press play." width="100%"></a>
+</p>
 
-Play is built on [yt-dlp](https://github.com/yt-dlp/yt-dlp), [YouTube.js](https://github.com/LuanRT/YouTube.js), [Shaka Player](https://github.com/shaka-project/shaka-player), [Express](https://expressjs.com), and [Instrument Sans](https://github.com/Instrument/instrument-sans).
-
-The film, demos, and screenshots show open movies by the [Blender Foundation](https://studio.blender.org/films/), licensed CC BY: Big Buck Bunny, Sintel, Tears of Steel, Spring, Coffee Run, Sprite Fright, Charge, Agent 327, and Wing It!
-
-Play is not affiliated with YouTube or Google.
+<sub>Play is built on <a href="https://github.com/yt-dlp/yt-dlp">yt-dlp</a>, <a href="https://github.com/LuanRT/YouTube.js">YouTube.js</a>, <a href="https://github.com/shaka-project/shaka-player">Shaka Player</a>, <a href="https://expressjs.com">Express</a>, and <a href="https://github.com/Instrument/instrument-sans">Instrument Sans</a>.<br><br>The film, demos, and screenshots show open movies by the <a href="https://studio.blender.org/films/">Blender Foundation</a>, licensed CC BY: Big Buck Bunny, Sintel, Tears of Steel, Spring, Coffee Run, Sprite Fright, Charge, Agent 327, and Wing It!<br><br>Play is not affiliated with YouTube or Google.</sub>
