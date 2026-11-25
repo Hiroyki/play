@@ -3,7 +3,7 @@ import { Player } from './player.js';
 import { Preview, bigThumb, calm, drag, intro, loadImage, transition } from './fx.js';
 
 const $ = (s) => document.querySelector(s);
-const DEVICE = /^Mac/.test(navigator.platform) ? 'Mac' : 'PC';
+const DEVICE = /Android/.test(navigator.userAgent) ? 'HP' : /^Mac/.test(navigator.platform) ? 'Mac' : 'PC';
 const view = $('#view');
 const dock = $('#dock');
 const player = new Player();
@@ -639,6 +639,11 @@ function settingsPage() {
       show().catch((e) => list.replaceChildren(h('p', { class: 'meta' }, e.message)));
       const v = await api('/version');
       if (!fresh()) return;
+      if (v.builtin) {
+        ver.previousElementSibling.textContent = 'Pemutar';
+        ver.replaceChildren(h('span', {}, h('strong', {}, v.have), h('span', { class: 'meta' }, 'Bawaan aplikasi. Kalau video berhenti bisa diputar, pasang Play versi baru.')));
+        return;
+      }
       const own = v.owned || (!v.have && !v.job);
       const get = h('button', { class: 'btn', type: 'button', onclick: () => fetchYtdlp(get, () => fresh() && route()) }, v.have ? 'Perbarui' : `Pasang (${v.size} MB)`);
       if (v.job?.phase === 'unduh') fetchYtdlp(get, () => fresh() && route());

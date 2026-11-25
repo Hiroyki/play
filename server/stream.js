@@ -106,6 +106,7 @@ export function warm(id) {
 // ---------- indeks MP4 ----------
 // Header MP4 cukup untuk tahu letak init dan sidx yang dibutuhkan DASH.
 async function ranges(f) {
+  if (f.init && f.index) return { init: f.init, index: f.index }; // di Android sudah diketahui
   const r = await fetch(f.url, { headers: { ...f.http_headers, Range: 'bytes=0-4095' }, signal: AbortSignal.timeout(15_000) });
   if (!r.ok) throw fail(502, 'media ' + r.status);
   const buf = Buffer.from(await r.arrayBuffer());

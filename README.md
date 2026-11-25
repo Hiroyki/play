@@ -124,6 +124,22 @@ bash mac/build.sh
 
 Requirements: macOS 13.5 or later. Tested on macOS 15.5 with an M1; the Intel build has only been started under Rosetta. Data and logs stay in `~/Library/Application Support/Play`; to remove Play, drag it to the Trash. If the Mac has no yt-dlp, Play downloads the official release on first start, about 54 MB. `open -a Play <YouTube link>` opens a link.
 
+### Android
+
+1. Download `Play-<version>.apk` from [Releases](https://github.com/Hiroyki/play/releases/latest) on the phone.
+2. Check that its SHA-256 matches the one in the release notes.
+3. Open it and allow installing from that source. If Play Protect warns, choose **More details > Install anyway**.
+
+Requirements: Android 8 or later with an up-to-date Android System WebView. Tested on one Android phone and on an Android emulator (API 37); older versions are untested. Share a link from another app to Play to open it. Data stays in the app and is removed with it, so export it in Settings first.
+
+The app is under 1 MB because it carries no Node.js and no yt-dlp. The same `server` code runs in the WebView that comes with Android, and stream addresses come from youtubei.js. When YouTube changes, a new version of the app is needed.
+
+To build it yourself, you need Node.js 22 or later, a JDK 17 or later, and the Android SDK with Platform 36:
+
+```bash
+bash android/build.sh
+```
+
 Above 1080p, Play needs AV1, which Safari's engine plays only on Macs that decode it in hardware (M3 and later). Other Macs get H.264 up to 1080p.
 
 <details>
@@ -206,6 +222,8 @@ sequenceDiagram
 | `windows/Setup.cs` | Installer |
 | `mac/Play.swift` | Native Mac window and server lifecycle |
 | `mac/guard.mjs` | Stops the server when the Mac app exits or crashes |
+| `android/src` | Android window, loopback server, and media notification |
+| `android/engine` | Runs `server` inside a WebView, and replaces yt-dlp |
 
 </details>
 
