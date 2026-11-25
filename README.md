@@ -307,7 +307,7 @@ Play is source-available under the [PolyForm Noncommercial License 1.0.0](LICENS
 <sub>The film, demos, and screenshots show open movies by the <a href="https://studio.blender.org/films/">Blender Foundation</a>, licensed CC BY: Big Buck Bunny, Sintel, Tears of Steel, Spring, Coffee Run, Sprite Fright, Charge, Agent 327, and Wing It!</sub>
 
 <p align="center">
-  <a href="https://github.com/Hiroyki/play/releases/latest"><img src="docs/outro.svg" alt="Press play." width="100%"></a>
+  <a href="https://github.com/Hiroyki/play/releases/latest"><img src="docs/outro.svg" alt="PLAY" width="100%"></a>
 </p>
 
 <p align="center">
