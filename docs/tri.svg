@@ -1,0 +1,1 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="presentation"><style>path{fill:#8b949e;transform-box:fill-box;transform-origin:34% 50%;animation:r 7s cubic-bezier(.65,0,.15,1) infinite}@keyframes r{0%,64%{transform:none}84%,100%{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){path{animation:none}}</style><path d="M5 4l15 8-15 8z"/></svg>

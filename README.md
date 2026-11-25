@@ -23,7 +23,7 @@ Play opens YouTube videos in its own window and plays the media stream directly,
 > [!IMPORTANT]
 > Play is for personal use. Fetching streams directly is against the YouTube Terms of Service, so do not host it publicly.
 
-<h2><a id="move"></a><img src="docs/t-move.svg" alt="See it move" width="100%"></h2>
+<h2><a id="move"></a><img src="docs/tri.svg" alt="" height="20">&nbsp; See it move</h2>
 
 <table>
   <tr>
@@ -52,7 +52,7 @@ Play opens YouTube videos in its own window and plays the media stream directly,
   </tr>
 </table>
 
-<h2><a id="get"></a><img src="docs/t-get.svg" alt="What you get" width="100%"></h2>
+<h2><a id="get"></a><img src="docs/tri.svg" alt="" height="20">&nbsp; What you get</h2>
 
 <table>
   <tr>
@@ -93,7 +93,7 @@ Play opens YouTube videos in its own window and plays the media stream directly,
 
 Sponsor segments that creators record into a video are part of the stream and still play.
 
-<h2><a id="install"></a><img src="docs/t-install.svg" alt="Install" width="100%"></h2>
+<h2><a id="install"></a><img src="docs/tri.svg" alt="" height="20">&nbsp; Install</h2>
 
 1. Download `Play-Setup-<version>.exe` from [Releases](https://github.com/Hiroyki/play/releases/latest).
 2. Check that its SHA-256 matches the one in the release notes.
@@ -125,7 +125,7 @@ Open `http://localhost:4321`. This copy keeps its data in `data`, separate from 
 
 </details>
 
-<h2><a id="inside"></a><img src="docs/t-inside.svg" alt="Look inside" width="100%"></h2>
+<h2><a id="inside"></a><img src="docs/tri.svg" alt="" height="20">&nbsp; Look inside</h2>
 
 <p align="center">
   <img src="docs/route.svg" alt="Play.exe talks to a local server on your PC. The server uses yt-dlp and library.json, asks YouTube for search and channels, and relays media from googlevideo.com." width="720">
@@ -222,7 +222,7 @@ The version comes from `package.json`. The installer script also stops if user d
 
 </details>
 
-<h2><a id="keys"></a><img src="docs/t-keys.svg" alt="Keys" width="100%"></h2>
+<h2><a id="keys"></a><img src="docs/tri.svg" alt="" height="20">&nbsp; Keys</h2>
 
 <p align="center">
   <img src="docs/keys.svg" alt="Keyboard with shortcuts lighting up. Space or K plays, J and L jump, number keys jump through the video, F is full screen, T wide mode, I picture in picture, M mute, C subtitles, Shift N next, slash search." width="600">
@@ -246,7 +246,7 @@ The version comes from `package.json`. The installer script also stops if user d
 
 </details>
 
-<h2><a id="faq"></a><img src="docs/t-faq.svg" alt="Questions" width="100%"></h2>
+<h2><a id="faq"></a><img src="docs/tri.svg" alt="" height="20">&nbsp; Questions</h2>
 
 <details>
 <summary><b>Why does a video sometimes take several seconds to start?</b></summary>
@@ -286,9 +286,7 @@ No. The server accepts connections only from the PC it runs on.
 
 </details>
 
-<h2><a id="license"></a><img src="docs/t-license.svg" alt="License" width="100%"></h2>
-
-<a href="LICENSE.md"><img src="docs/license.svg" alt="PolyForm Noncommercial license. Use it, change it, share it, do not sell it." width="100%"></a>
+<h2><a id="license"></a><img src="docs/tri.svg" alt="" height="20">&nbsp; License</h2>
 
 Play is source-available under the [PolyForm Noncommercial License 1.0.0](LICENSE.md): use, change, and share it for noncommercial purposes. The license covers Play itself; the libraries it uses keep their own licenses, and the YouTube Terms of Service still apply.
 
