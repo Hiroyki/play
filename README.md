@@ -111,7 +111,7 @@ To remove Play, use **Settings > Apps**. Your data stays in `%LOCALAPPDATA%\Play
 
 ### Mac
 
-1. Download the `.dmg` from [Play 1.0.1 for Mac](https://github.com/Hiroyki/play/releases/tag/v1.0.1-mac): `arm64` for Apple Silicon, `x64` for Intel.
+1. Download the `.dmg` from [Releases](https://github.com/Hiroyki/play/releases/latest): `arm64` for Apple Silicon, `x64` for Intel.
 2. Check that its SHA-256 matches the one in the release notes.
 3. Open it and drag Play to Applications.
 4. The app is not signed by Apple, so macOS blocks the first start. Allow it in **System Settings > Privacy & Security > Open Anyway**.
