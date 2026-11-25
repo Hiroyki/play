@@ -5,83 +5,88 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/Hiroyki/play/releases/latest"><img src="docs/btn-download.svg" alt="Download Play" height="52"></a>&nbsp;
-  <a href="#move"><img src="docs/btn-demo.svg" alt="See it move" height="52"></a>&nbsp;
-  <a href="#inside"><img src="docs/btn-inside.svg" alt="Look inside" height="52"></a>
-</p>
-
-<p align="center">
-  <img src="docs/intro.webp" alt="Intro film: the PLAY logo draws itself, opens into animated films, and shows the app" width="100%">
+  <a href="https://github.com/Hiroyki/play/releases/latest"><img src="docs/btn-download.svg" alt="Download Play" height="38"></a>&nbsp;
+  <a href="#move"><img src="docs/btn-demo.svg" alt="See it move" height="38"></a>&nbsp;
+  <a href="#inside"><img src="docs/btn-inside.svg" alt="Look inside" height="38"></a>
 </p>
 
 Play opens YouTube videos in its own window and plays the media stream directly, so pre-roll and mid-roll ads are never requested. It runs on one PC, keeps your data there, and needs no account.
 
-> [!IMPORTANT]
-> Play is for personal use. Fetching streams directly is against the YouTube Terms of Service, so do not host it publicly.
+<p align="center">
+  <img src="docs/intro.webp" alt="Intro film: the PLAY logo draws itself, opens into animated films, and shows the app" width="560">
+</p>
 
 <p align="center">
   <img src="docs/numbers.svg" alt="0 ads requested. 4K in AV1 and H.264. 0 ms stall on quality switch. 60 KB app window." width="100%">
 </p>
 
-<p align="center">
-  <img src="docs/wall.webp" alt="A tilted wall of real Play screens scrolling past" width="100%">
-</p>
+> [!IMPORTANT]
+> Play is for personal use. Fetching streams directly is against the YouTube Terms of Service, so do not host it publicly.
 
 <h2><a id="move"></a><img src="docs/t-move.svg" alt="See it move" width="100%"></h2>
 
-**The thumbnail becomes the player, and the player follows you.** Go back to browsing and the video shrinks into the corner without stopping.
-
-<img src="docs/demo-browse.webp" alt="A thumbnail grows into the player, then shrinks into a corner player on the home page" width="100%">
-
-**Scrub with pictures, switch quality without a stall.** Hover the seek bar for a preview of every moment. In testing, changing from 360p to 2160p caused 0 ms of rebuffering; the first version stalled for 1.8 seconds.
-
-<img src="docs/demo-player.webp" alt="Previews appear along the seek bar, then the quality menu switches to 2160p" width="100%">
-
-**Search from anywhere.** Press <kbd>/</kbd>, type, or paste a YouTube link.
-
-<img src="docs/demo-search.webp" alt="The search box opens, suggests titles, and shows results" width="100%">
-
-**Hover first, start sooner.** Play prepares a video while the pointer rests on it. The bars below move in real time and show the slowest start of each kind in testing.
-
-<img src="docs/race.svg" alt="Slowest start measured in testing: 1.6 seconds when you hover first, 12.6 seconds when you click cold" width="100%">
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/demo-browse.webp" alt="A thumbnail grows into the player, then shrinks into a corner player"><br>
+      <b>It follows you</b><br>
+      <sub>The thumbnail becomes the player, and the player shrinks into the corner while you browse.</sub>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/demo-player.webp" alt="Previews appear along the seek bar, then the quality menu switches to 2160p"><br>
+      <b>Scrub with pictures</b><br>
+      <sub>Previews along the seek bar. Switching from 360p to 2160p caused 0 ms of rebuffering in testing.</sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/demo-search.webp" alt="The search box opens, suggests titles, and shows results"><br>
+      <b>Search from anywhere</b><br>
+      <sub>Press <kbd>/</kbd>, type, or paste a YouTube link.</sub>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/race.svg" alt="Slowest start in testing: 1.6 seconds when you hover first, 12.6 seconds when you click cold"><br>
+      <b>Hover first, start sooner</b><br>
+      <sub>Play prepares a video under the pointer. The bars run in real time and show the slowest start of each kind in testing.</sub>
+    </td>
+  </tr>
+</table>
 
 <h2><a id="get"></a><img src="docs/t-get.svg" alt="What you get" width="100%"></h2>
 
 <table>
   <tr>
-    <td width="50%" valign="top">
-      <img src="docs/home.jpg" alt="Home page">
-      <h3>A home page built from what you watch</h3>
-      <p>Five rotating highlights with silent previews, a continue-watching row, weekly rankings, nine topics, and a shelf that changes with the time of day.</p>
+    <td width="33%" valign="top">
+      <img src="docs/home.jpg" alt="Home page"><br>
+      <b>Home</b><br>
+      <sub>Highlights with silent previews, continue watching, and a shelf for the time of day.</sub>
     </td>
-    <td width="50%" valign="top">
-      <img src="docs/watch.jpg" alt="Watch page">
-      <h3>A watch page that fits the scene</h3>
-      <p>Soft light around the player follows the picture. Subtitles, chapters, speed, autoplay, resume, and live streams are included.</p>
+    <td width="33%" valign="top">
+      <img src="docs/watch.jpg" alt="Watch page"><br>
+      <b>Watch</b><br>
+      <sub>Soft light follows the picture. Subtitles, chapters, speed, resume, live.</sub>
     </td>
-  </tr>
-  <tr>
-    <td valign="top">
-      <img src="docs/explore.jpg" alt="Weekly rankings and topics">
-      <h3>Rankings and topics</h3>
-      <p>The week's most viewed search results, sorted by view count, for the home page and for each topic.</p>
-    </td>
-    <td valign="top">
-      <img src="docs/channel.jpg" alt="Channel page">
-      <h3>Channels and playlists</h3>
-      <p>Videos, live streams, and playlists of any channel. Subscriptions collect new uploads on one page.</p>
+    <td width="33%" valign="top">
+      <img src="docs/explore.jpg" alt="Weekly rankings and topics"><br>
+      <b>Explore</b><br>
+      <sub>Weekly rankings and nine topics.</sub>
     </td>
   </tr>
   <tr>
-    <td valign="top">
-      <img src="docs/quality.jpg" alt="Quality menu">
-      <h3>Up to 4K</h3>
-      <p>AV1 where the hardware decodes it efficiently, H.264 everywhere else. Automatic mode follows your connection and the player size.</p>
+    <td width="33%" valign="top">
+      <img src="docs/channel.jpg" alt="Channel page"><br>
+      <b>Channels</b><br>
+      <sub>Videos, live streams, playlists, and one page for subscriptions.</sub>
     </td>
-    <td valign="top">
-      <img src="docs/settings.jpg" alt="Settings page">
-      <h3>Your data, in one file</h3>
-      <p>Subscriptions, saved videos, and history stay on the PC, with a daily backup, export, import, and restore.</p>
+    <td width="33%" valign="top">
+      <img src="docs/quality.jpg" alt="Quality menu"><br>
+      <b>Up to 4K</b><br>
+      <sub>AV1 where the hardware decodes it efficiently, H.264 otherwise.</sub>
+    </td>
+    <td width="33%" valign="top">
+      <img src="docs/settings.jpg" alt="Settings page"><br>
+      <b>Your data</b><br>
+      <sub>One file on your PC, with daily backups, export, and import.</sub>
     </td>
   </tr>
 </table>
@@ -121,7 +126,9 @@ Open `http://localhost:4321`. This copy keeps its data in `data`, separate from 
 
 <h2><a id="inside"></a><img src="docs/t-inside.svg" alt="Look inside" width="100%"></h2>
 
-<img src="docs/route.svg" alt="Play.exe talks to a local server on your PC. The server uses yt-dlp and library.json, asks YouTube for search and channels, and relays media from googlevideo.com." width="100%">
+<p align="center">
+  <img src="docs/route.svg" alt="Play.exe talks to a local server on your PC. The server uses yt-dlp and library.json, asks YouTube for search and channels, and relays media from googlevideo.com." width="720">
+</p>
 
 `Play.exe` starts the server on a loopback port and stops it on exit, even after a crash. The server finds stream addresses with yt-dlp, reads the MP4 index, and serves a DASH manifest, so the player requests only the byte ranges it needs.
 
@@ -216,7 +223,9 @@ The version comes from `package.json`. The installer script also stops if user d
 
 <h2><a id="keys"></a><img src="docs/t-keys.svg" alt="Keys" width="100%"></h2>
 
-<img src="docs/keys.svg" alt="Keyboard with shortcuts lighting up. Space or K plays, J and L jump, number keys jump through the video, F is full screen, T wide mode, I picture in picture, M mute, C subtitles, Shift N next, slash search." width="100%">
+<p align="center">
+  <img src="docs/keys.svg" alt="Keyboard with shortcuts lighting up. Space or K plays, J and L jump, number keys jump through the video, F is full screen, T wide mode, I picture in picture, M mute, C subtitles, Shift N next, slash search." width="600">
+</p>
 
 <details>
 <summary><b>Every shortcut as a list</b></summary>
@@ -276,9 +285,13 @@ No. The server accepts connections only from the PC it runs on.
 
 </details>
 
-<h2><a id="built"></a><img src="docs/t-built.svg" alt="Built with" width="100%"></h2>
+<h2><a id="license"></a><img src="docs/t-license.svg" alt="License" width="100%"></h2>
 
-<img src="docs/built.svg" alt="yt-dlp, YouTube.js, Shaka Player, Express, Node.js, WebView2, WinForms, and Instrument Sans" width="100%">
+<a href="LICENSE.md"><img src="docs/license.svg" alt="PolyForm Noncommercial license. Use it, change it, share it, do not sell it." width="100%"></a>
+
+Play is source-available under the [PolyForm Noncommercial License 1.0.0](LICENSE.md): use, change, and share it for noncommercial purposes. The license covers Play itself; the libraries below keep their own licenses, and the YouTube Terms of Service still apply.
+
+<img src="docs/built.svg" alt="Built with yt-dlp, YouTube.js, Shaka Player, Express, Node.js, WebView2, WinForms, and Instrument Sans" width="100%">
 
 <p align="center">
   <a href="https://github.com/yt-dlp/yt-dlp">yt-dlp</a> ·
@@ -290,23 +303,16 @@ No. The server accepts connections only from the PC it runs on.
   <a href="https://github.com/Instrument/instrument-sans">Instrument Sans</a>
 </p>
 
-<h2><a id="license"></a><img src="docs/t-license.svg" alt="License" width="100%"></h2>
-
-<a href="LICENSE"><img src="docs/license.svg" alt="MIT License. Use it. Change it. Share it. Keep the notice." width="100%"></a>
-
-The code is released under the [MIT License](LICENSE). It covers Play itself: the libraries above keep their own licenses, and the license does not change the YouTube Terms of Service.
-
-The film, demos, and screenshots show open movies by the <a href="https://studio.blender.org/films/">Blender Foundation</a>, licensed CC BY: Big Buck Bunny, Sintel, Tears of Steel, Spring, Coffee Run, Sprite Fright, Charge, Agent 327, and Wing It!
+<sub>The film, demos, and screenshots show open movies by the <a href="https://studio.blender.org/films/">Blender Foundation</a>, licensed CC BY: Big Buck Bunny, Sintel, Tears of Steel, Spring, Coffee Run, Sprite Fright, Charge, Agent 327, and Wing It!</sub>
 
 <p align="center">
   <a href="https://github.com/Hiroyki/play/releases/latest"><img src="docs/outro.svg" alt="Press play." width="100%"></a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/Hiroyki/play/releases/latest"><img src="docs/btn-download.svg" alt="Download Play" height="52"></a>&nbsp;
-  <a href="https://github.com/Hiroyki/play"><img src="docs/btn-star.svg" alt="Star it" height="52"></a>&nbsp;
-  <a href="https://github.com/Hiroyki/play/issues/new"><img src="docs/btn-bug.svg" alt="Report a bug" height="52"></a>&nbsp;
-  <a href="#top"><img src="docs/btn-top.svg" alt="Back to top" height="52"></a>
+  <a href="https://github.com/Hiroyki/play"><img src="docs/btn-star.svg" alt="Star it" height="38"></a>&nbsp;
+  <a href="https://github.com/Hiroyki/play/issues/new"><img src="docs/btn-bug.svg" alt="Report a bug" height="38"></a>&nbsp;
+  <a href="#top"><img src="docs/btn-top.svg" alt="Back to top" height="38"></a>
 </p>
 
 <p align="center"><sub>Play is not affiliated with YouTube or Google.</sub></p>
