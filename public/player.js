@@ -128,6 +128,7 @@ export class Player {
       this.bar.style.setProperty('--p', this.bar.value);
     });
     this.dragging = () => dragging;
+    this.track.addEventListener('pointerenter', () => this.#loadBoard());
     this.track.addEventListener('pointermove', (e) => {
       const b = this.track.getBoundingClientRect();
       const p = Math.min(1, Math.max(0, (e.clientX - b.left) / b.width));
@@ -633,6 +634,17 @@ export class Player {
   get chapters() {
     return this.#info?.chapters ?? [];
   }
+  // Unduh semua lembar cuplikan sekali, supaya geseran cepat tidak menampilkan kotak kosong.
+  #loadBoard() {
+    const b = this.#info?.board;
+    if (!b || b.images) return;
+    b.images = b.sheets.map((src) => {
+      const i = new Image();
+      i.referrerPolicy = 'no-referrer';
+      i.src = src;
+      return i;
+    });
+  }
   // Isi elemen dengan gambar kecil pada detik ke-t.
   frame(el, t, width) {
     const b = this.#info?.board;
@@ -642,6 +654,8 @@ export class Player {
     const sheet = Math.min(b.sheets.length - 1, Math.floor(n / per));
     const k = Math.min(per - 1, n - sheet * per);
     const scale = width / b.w;
+    // Selama lembarnya belum selesai dimuat, gambar sebelumnya dibiarkan tampil.
+    if (b.images && !b.images[sheet].complete && el.style.backgroundImage) return true;
     el.style.width = width + 'px';
     el.style.height = Math.round(b.h * scale) + 'px';
     el.style.backgroundImage = `url("${b.sheets[sheet]}")`;

@@ -1,38 +1,111 @@
 <p align="center">
-  <img src="public/logo.svg" alt="PLAY" width="420">
+  <img src="docs/banner.svg" alt="PLAY" width="100%">
+</p>
+
+<h3 align="center">A personal YouTube player without the ads.</h3>
+
+<p align="center">
+  <a href="https://github.com/Hiroyki/play/releases/latest"><img alt="Download for Windows" src="https://img.shields.io/badge/Download-Windows_x64-ffffff?style=for-the-badge&labelColor=000000"></a>
+  <img alt="Version 1.0.0" src="https://img.shields.io/badge/version-1.0.0-ffffff?style=for-the-badge&labelColor=000000">
+  <img alt="Up to 4K AV1" src="https://img.shields.io/badge/up_to-4K_AV1-ffffff?style=for-the-badge&labelColor=000000">
+  <img alt="No account needed" src="https://img.shields.io/badge/account-not_needed-ffffff?style=for-the-badge&labelColor=000000">
 </p>
 
 <p align="center">
-  A personal YouTube player for Windows, without the ads.
-</p>
-
-<p align="center">
-  <a href="https://github.com/Hiroyki/play/releases/latest">Download</a> ·
+  <a href="#see-it-move">See it move</a> ·
+  <a href="#what-you-get">What you get</a> ·
   <a href="#install">Install</a> ·
-  <a href="#run-from-source">Run from source</a> ·
+  <a href="#how-it-works">How it works</a> ·
+  <a href="#keyboard-shortcuts">Shortcuts</a> ·
   <a href="#build">Build</a> ·
-  <a href="#how-it-works">How it works</a>
+  <a href="#questions">Questions</a>
 </p>
 
-![Play home page](docs/home.jpg)
+<p align="center">
+  <img src="docs/intro.webp" alt="Intro film: the PLAY logo draws itself, opens into open movies, and shows the app" width="100%">
+</p>
 
-Play opens YouTube videos in its own window and plays the media stream directly, so pre-roll and mid-roll ads are never requested. It runs on one PC, keeps your data on that PC, and needs no YouTube account. Sponsor segments that creators record into a video are part of the stream and still play.
+Play opens YouTube videos in its own window and plays the media stream directly, so pre-roll and mid-roll ads are never requested. It runs on one PC and keeps your data there.
 
 > [!IMPORTANT]
 > Play is for personal use. Fetching streams directly is against the YouTube Terms of Service, so do not host it publicly.
 
-## Features
+## See it move
 
-- **Playback:** up to 4K AV1 where the hardware decodes it efficiently and H.264 otherwise, live streams, subtitles, chapters, speed, autoplay, and resume.
-- **Player:** quality switching without a rebuffer, thumbnails on the seek bar, a curve of the most replayed parts, and ambient light that follows the scene.
-- **Browsing:** search, channels, playlists, comments, nine topics, and weekly rankings. Pasting a YouTube link opens it.
-- **Continuity:** the video shrinks into a corner player while you browse and keeps playing.
-- **Your data:** subscriptions, saved videos, and history live in one JSON file, with daily backups, export, and import.
-- **Windows integration:** native window, taskbar playback buttons, and a single instance that accepts YouTube links as an argument.
+**The thumbnail becomes the player, and the player follows you.** Go back to browsing and the video shrinks into the corner without stopping.
 
-| Watch page | Quality menu | Corner player |
-|---|---|---|
-| ![Watch page](docs/watch.jpg) | ![Quality menu](docs/quality.jpg) | ![Corner player](docs/mini-player.jpg) |
+<img src="docs/demo-browse.webp" alt="A thumbnail grows into the player, then shrinks into a corner player on the home page" width="100%">
+
+**Scrub with pictures, switch quality without a stall.** Hover the seek bar for a preview of every moment. In testing, changing from 360p to 2160p caused 0 ms of rebuffering; the first version stalled for 1.8 seconds.
+
+<img src="docs/demo-player.webp" alt="Previews appear along the seek bar, then the quality menu switches to 2160p" width="100%">
+
+**Search from anywhere.** Press `/`, type, or paste a YouTube link.
+
+<img src="docs/demo-search.webp" alt="The search box opens, suggests titles, and shows results" width="100%">
+
+## What you get
+
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <img src="docs/home.jpg" alt="Home page">
+      <h3>A home page built from what you watch</h3>
+      <p>Five rotating highlights with silent previews, a continue-watching row, weekly rankings, nine topics, and a shelf that changes with the time of day.</p>
+    </td>
+    <td width="50%" valign="top">
+      <img src="docs/watch.jpg" alt="Watch page">
+      <h3>A watch page that fits the scene</h3>
+      <p>Soft light around the player follows the picture. Subtitles, chapters, speed, autoplay, resume, and live streams are included.</p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <img src="docs/explore.jpg" alt="Weekly rankings and topics">
+      <h3>Rankings and topics</h3>
+      <p>The week's most viewed search results, sorted by view count, for the home page and for each topic.</p>
+    </td>
+    <td valign="top">
+      <img src="docs/channel.jpg" alt="Channel page">
+      <h3>Channels and playlists</h3>
+      <p>Videos, live streams, and playlists of any channel. Subscriptions collect new uploads on one page.</p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <img src="docs/quality.jpg" alt="Quality menu">
+      <h3>Up to 4K</h3>
+      <p>AV1 where the hardware decodes it efficiently, H.264 everywhere else. Automatic mode follows your connection and the player size.</p>
+    </td>
+    <td valign="top">
+      <img src="docs/settings.jpg" alt="Settings page">
+      <h3>Your data, in one file</h3>
+      <p>Subscriptions, saved videos, and history stay on the PC, with a daily backup, export, import, and restore.</p>
+    </td>
+  </tr>
+</table>
+
+| | Play |
+|---|---|
+| Pre-roll and mid-roll ads | Never requested |
+| Sponsor segments recorded by creators | Still play |
+| YouTube account | Not used |
+| Where your data lives | One JSON file on your PC |
+| Native window | `Play.exe`, 60 KB |
+| Installer | 36 MB, Node.js included |
+| Time to install | 6.2 seconds in testing |
+
+### Start times
+
+Play prepares a video when the pointer rests on it. Both bars show the slowest start measured in testing, in seconds.
+
+```mermaid
+xychart-beta
+  title "Seconds until the picture moves (lower is better)"
+  x-axis ["Prepared by hovering", "Clicked cold"]
+  y-axis "Seconds" 0 --> 14
+  bar [1.6, 12.6]
+```
 
 ## Install
 
@@ -42,13 +115,17 @@ Play opens YouTube videos in its own window and plays the media stream directly,
 
 Requirements: 64-bit Windows 11, where Play is tested. Windows 10 is untested and needs the [WebView2 Runtime](https://developer.microsoft.com/microsoft-edge/webview2/).
 
-The installer contains Node.js. If the PC has no yt-dlp, Play downloads the official release on first start and verifies its SHA-256 before using it.
+If the PC has no yt-dlp, Play downloads the official release on first start and verifies its SHA-256 before using it.
 
-The installer is not code-signed, so SmartScreen shows a warning.
+> [!NOTE]
+> The installer is not code-signed, so SmartScreen shows a warning.
 
 To remove Play, use **Settings > Apps**. Your data stays in `%LOCALAPPDATA%\Play`.
 
-## Run from source
+<details>
+<summary><b>Run from source instead</b></summary>
+
+<br>
 
 You need Node.js 22 or later and [yt-dlp](https://github.com/yt-dlp/yt-dlp) on `PATH`.
 
@@ -59,16 +136,7 @@ npm start
 
 Open `http://localhost:4321`. This copy keeps its data in `data`, separate from an installed copy. To move between the two, use Export and Import in Settings.
 
-## Build
-
-The build uses `csc.exe`, the C# compiler included with Windows, and the `Microsoft.Web.WebView2` SDK from the NuGet cache. It stops if a WebView2 file is not signed by Microsoft.
-
-| Command | Output |
-|---|---|
-| `powershell -ExecutionPolicy Bypass -File windows\build.ps1` | `Play.exe` in the repository root |
-| `powershell -ExecutionPolicy Bypass -File windows\installer.ps1` | `dist\Play-Setup-<version>.exe` |
-
-The version comes from `package.json`. The installer script also stops if user data ends up in the package.
+</details>
 
 ## How it works
 
@@ -84,18 +152,45 @@ flowchart LR
   S -->|"media, by byte range"| G["googlevideo.com"]
 ```
 
-`Play.exe` starts the server on a loopback port and stops it on exit, even after a crash. The server finds the stream addresses with yt-dlp, reads the MP4 index, and serves a DASH manifest. [Shaka Player](https://github.com/shaka-project/shaka-player) then requests only the byte ranges it needs.
+`Play.exe` starts the server on a loopback port and stops it on exit, even after a crash. What happens when you press play:
 
-YouTube activates some stream addresses a few seconds after issuing them. Play waits for that moment, and prepares videos you hover over so they can start sooner.
+```mermaid
+sequenceDiagram
+  autonumber
+  participant P as Player
+  participant S as Local server
+  participant Y as yt-dlp
+  participant G as googlevideo.com
+  P->>S: Play this video
+  S->>Y: Find stream addresses
+  Y-->>S: Formats, captions, chapters
+  Note over S: Wait until YouTube<br/>activates the addresses
+  S->>G: First 4 KB of each format
+  G-->>S: MP4 index
+  S-->>P: DASH manifest
+  loop While playing
+    P->>S: Next byte range
+    S->>G: Same range
+    G-->>P: Media, relayed
+  end
+```
 
-### Privacy and security
+<details>
+<summary><b>Privacy and security</b></summary>
+
+<br>
 
 - The server listens on `127.0.0.1` and rejects requests with a foreign `Host` or `Origin`.
 - The media proxy accepts only video IDs and `googlevideo.com` addresses.
 - Text from YouTube is inserted as text, never as HTML, under a content security policy.
 - The app contacts YouTube and its image hosts, PyPI to check the yt-dlp version, and GitHub when it installs yt-dlp.
 
-### Layout
+</details>
+
+<details>
+<summary><b>Project layout</b></summary>
+
+<br>
 
 | Path | Contents |
 |---|---|
@@ -107,23 +202,12 @@ YouTube activates some stream addresses a few seconds after issuing them. Play w
 | `windows/Play.cs` | Native window and server lifecycle |
 | `windows/Setup.cs` | Installer |
 
-## Keyboard shortcuts
+</details>
 
-| Key | Action |
-|---|---|
-| `Space` or `K` | Play or pause |
-| `J` / `L` | Back or forward 10 seconds |
-| `←` / `→` | Back or forward 5 seconds |
-| `↑` / `↓` | Volume |
-| `0` to `9` | Jump to 0% to 90% |
-| `<` / `>` | Speed |
-| `M`, `C`, `F`, `T`, `I` | Mute, subtitles, full screen, wide mode, picture in picture |
-| `Shift+N` | Next video |
-| `/` or `Ctrl+K` | Search (`Ctrl+K` in the Windows app) |
-| `Alt+←` / `Alt+→` | Back or forward (Windows app) |
-| `F5`, `F11` | Reload, full screen (Windows app) |
+<details>
+<summary><b>Configuration</b></summary>
 
-## Configuration
+<br>
 
 | Variable | Default | Usage |
 |---|---|---|
@@ -134,16 +218,76 @@ YouTube activates some stream addresses a few seconds after issuing them. Play w
 | `PLAY_YTDLP_URL` | latest yt-dlp release on GitHub | Download source for yt-dlp |
 | `YTDLP` | unset | Path to a specific yt-dlp |
 
-## Known limits
+</details>
 
-- Private, members-only, and age-restricted videos do not play, because Play does not sign in to YouTube.
-- Starting a video that was not prepared took 8.5 to 12.6 seconds in testing; a prepared one took 0.6 to 1.6 seconds.
-- YouTube changes can break playback until yt-dlp is updated. Settings shows when a newer version exists.
+## Keyboard shortcuts
+
+| Playback | | Navigation | |
+|---|---|---|---|
+| <kbd>Space</kbd> <kbd>K</kbd> | Play or pause | <kbd>/</kbd> | Search |
+| <kbd>J</kbd> <kbd>L</kbd> | 10 seconds back or forward | <kbd>Ctrl</kbd> <kbd>K</kbd> | Search, in the app |
+| <kbd>←</kbd> <kbd>→</kbd> | 5 seconds back or forward | <kbd>Alt</kbd> <kbd>←</kbd> <kbd>→</kbd> | Back or forward, in the app |
+| <kbd>↑</kbd> <kbd>↓</kbd> | Volume | <kbd>Shift</kbd> <kbd>N</kbd> | Next video |
+| <kbd>0</kbd> to <kbd>9</kbd> | Jump to 0% to 90% | <kbd>F</kbd> | Full screen |
+| <kbd>&lt;</kbd> <kbd>&gt;</kbd> | Speed | <kbd>T</kbd> | Wide mode |
+| <kbd>M</kbd> | Mute | <kbd>I</kbd> | Picture in picture |
+| <kbd>C</kbd> | Subtitles | <kbd>F5</kbd> <kbd>F11</kbd> | Reload, full screen, in the app |
+
+## Build
+
+The build uses `csc.exe`, the C# compiler included with Windows, and the `Microsoft.Web.WebView2` SDK from the NuGet cache. It stops if a WebView2 file is not signed by Microsoft.
+
+| Command | Output |
+|---|---|
+| `powershell -ExecutionPolicy Bypass -File windows\build.ps1` | `Play.exe` in the repository root |
+| `powershell -ExecutionPolicy Bypass -File windows\installer.ps1` | `dist\Play-Setup-<version>.exe` |
+
+The version comes from `package.json`. The installer script also stops if user data ends up in the package.
+
+## Questions
+
+<details>
+<summary><b>Why does a video sometimes take several seconds to start?</b></summary>
+
+<br>
+
+YouTube activates some stream addresses a few seconds after issuing them, and Play waits for that moment. Resting the pointer on a video first hides most of the wait.
+
+</details>
+
+<details>
+<summary><b>A video stopped playing. What now?</b></summary>
+
+<br>
+
+YouTube changes often, and yt-dlp follows. Open Settings, which shows when a newer yt-dlp exists and can update the copy Play installed.
+
+</details>
+
+<details>
+<summary><b>What does not work?</b></summary>
+
+<br>
+
+- Private, members-only, and age-restricted videos, because Play does not sign in to YouTube.
 - Shorts are hidden from lists, but a Shorts link opens normally.
-- The interface is in Indonesian.
+- The interface is in Indonesian only.
+
+</details>
+
+<details>
+<summary><b>Can I open it on my phone?</b></summary>
+
+<br>
+
+No. The server accepts connections only from the PC it runs on.
+
+</details>
 
 ## Credits
 
-Play is built on [yt-dlp](https://github.com/yt-dlp/yt-dlp), [YouTube.js](https://github.com/LuanRT/YouTube.js), [Shaka Player](https://github.com/shaka-project/shaka-player), [Express](https://expressjs.com), and [Instrument Sans](https://github.com/Instrument/instrument-sans). Screenshots show open movies by the [Blender Foundation](https://studio.blender.org/films/), licensed CC BY.
+Play is built on [yt-dlp](https://github.com/yt-dlp/yt-dlp), [YouTube.js](https://github.com/LuanRT/YouTube.js), [Shaka Player](https://github.com/shaka-project/shaka-player), [Express](https://expressjs.com), and [Instrument Sans](https://github.com/Instrument/instrument-sans).
+
+The film, demos, and screenshots show open movies by the [Blender Foundation](https://studio.blender.org/films/), licensed CC BY: Big Buck Bunny, Sintel, Tears of Steel, Spring, Coffee Run, Sprite Fright, Charge, Agent 327, and Wing It!
 
 Play is not affiliated with YouTube or Google.
