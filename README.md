@@ -111,15 +111,18 @@ To remove Play, use **Settings > Apps**. Your data stays in `%LOCALAPPDATA%\Play
 
 ### Mac
 
-There is no signed Mac release, so build it on your Mac. You need Node.js 22 or later and the Command Line Tools (`xcode-select --install`); Xcode itself is not needed.
+1. Download the `.dmg` from [Play 1.0.1 for Mac](https://github.com/Hiroyki/play/releases/tag/v1.0.1-mac): `arm64` for Apple Silicon, `x64` for Intel.
+2. Check that its SHA-256 matches the one in the release notes.
+3. Open it and drag Play to Applications.
+4. The app is not signed by Apple, so macOS blocks the first start. Allow it in **System Settings > Privacy & Security > Open Anyway**.
+
+To build it yourself, you need Node.js 22 or later and the Command Line Tools (`xcode-select --install`):
 
 ```bash
 bash mac/build.sh
 ```
 
-Open the `.dmg` in `dist` and drag Play to Applications. A copy built on the same Mac opens normally; one sent to another Mac is blocked until it is allowed in **System Settings > Privacy & Security > Open Anyway**.
-
-Requirements: macOS 13.5 or later. Tested on macOS 15.5 with an M1. Data and logs stay in `~/Library/Application Support/Play`; to remove Play, drag it to the Trash. If the Mac has no yt-dlp, Play downloads the official release on first start, about 54 MB. `open -a Play <YouTube link>` opens a link.
+Requirements: macOS 13.5 or later. Tested on macOS 15.5 with an M1; the Intel build has only been started under Rosetta. Data and logs stay in `~/Library/Application Support/Play`; to remove Play, drag it to the Trash. If the Mac has no yt-dlp, Play downloads the official release on first start, about 54 MB. `open -a Play <YouTube link>` opens a link.
 
 Above 1080p, Play needs AV1, which Safari's engine plays only on Macs that decode it in hardware (M3 and later). Other Macs get H.264 up to 1080p.
 
