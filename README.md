@@ -1,3 +1,5 @@
+<a id="top"></a>
+
 <p align="center">
   <img src="docs/cover.svg" alt="PLAY. YouTube, without the ads." width="100%">
 </p>
@@ -274,8 +276,37 @@ No. The server accepts connections only from the PC it runs on.
 
 </details>
 
+<h2><a id="built"></a><img src="docs/t-built.svg" alt="Built with" width="100%"></h2>
+
+<img src="docs/built.svg" alt="yt-dlp, YouTube.js, Shaka Player, Express, Node.js, WebView2, WinForms, and Instrument Sans" width="100%">
+
+<p align="center">
+  <a href="https://github.com/yt-dlp/yt-dlp">yt-dlp</a> ·
+  <a href="https://github.com/LuanRT/YouTube.js">YouTube.js</a> ·
+  <a href="https://github.com/shaka-project/shaka-player">Shaka Player</a> ·
+  <a href="https://expressjs.com">Express</a> ·
+  <a href="https://nodejs.org">Node.js</a> ·
+  <a href="https://developer.microsoft.com/microsoft-edge/webview2/">WebView2</a> ·
+  <a href="https://github.com/Instrument/instrument-sans">Instrument Sans</a>
+</p>
+
+<h2><a id="license"></a><img src="docs/t-license.svg" alt="License" width="100%"></h2>
+
+<a href="LICENSE"><img src="docs/license.svg" alt="MIT License. Use it. Change it. Share it. Keep the notice." width="100%"></a>
+
+The code is released under the [MIT License](LICENSE). It covers Play itself: the libraries above keep their own licenses, and the license does not change the YouTube Terms of Service.
+
+The film, demos, and screenshots show open movies by the <a href="https://studio.blender.org/films/">Blender Foundation</a>, licensed CC BY: Big Buck Bunny, Sintel, Tears of Steel, Spring, Coffee Run, Sprite Fright, Charge, Agent 327, and Wing It!
+
 <p align="center">
   <a href="https://github.com/Hiroyki/play/releases/latest"><img src="docs/outro.svg" alt="Press play." width="100%"></a>
 </p>
 
-<sub>Play is built on <a href="https://github.com/yt-dlp/yt-dlp">yt-dlp</a>, <a href="https://github.com/LuanRT/YouTube.js">YouTube.js</a>, <a href="https://github.com/shaka-project/shaka-player">Shaka Player</a>, <a href="https://expressjs.com">Express</a>, and <a href="https://github.com/Instrument/instrument-sans">Instrument Sans</a>.<br><br>The film, demos, and screenshots show open movies by the <a href="https://studio.blender.org/films/">Blender Foundation</a>, licensed CC BY: Big Buck Bunny, Sintel, Tears of Steel, Spring, Coffee Run, Sprite Fright, Charge, Agent 327, and Wing It!<br><br>Play is not affiliated with YouTube or Google.</sub>
+<p align="center">
+  <a href="https://github.com/Hiroyki/play/releases/latest"><img src="docs/btn-download.svg" alt="Download Play" height="52"></a>&nbsp;
+  <a href="https://github.com/Hiroyki/play"><img src="docs/btn-star.svg" alt="Star it" height="52"></a>&nbsp;
+  <a href="https://github.com/Hiroyki/play/issues/new"><img src="docs/btn-bug.svg" alt="Report a bug" height="52"></a>&nbsp;
+  <a href="#top"><img src="docs/btn-top.svg" alt="Back to top" height="52"></a>
+</p>
+
+<p align="center"><sub>Play is not affiliated with YouTube or Google.</sub></p>
