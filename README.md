@@ -109,6 +109,20 @@ If the PC has no yt-dlp, Play downloads the official release on first start, abo
 
 To remove Play, use **Settings > Apps**. Your data stays in `%LOCALAPPDATA%\Play`.
 
+### Mac
+
+There is no signed Mac release, so build it on your Mac. You need Node.js 22 or later and the Command Line Tools (`xcode-select --install`); Xcode itself is not needed.
+
+```bash
+bash mac/build.sh
+```
+
+Open the `.dmg` in `dist` and drag Play to Applications. A copy built on the same Mac opens normally; one sent to another Mac is blocked until it is allowed in **System Settings > Privacy & Security > Open Anyway**.
+
+Requirements: macOS 13.5 or later. Tested on macOS 15.5 with an M1. Data and logs stay in `~/Library/Application Support/Play`; to remove Play, drag it to the Trash. If the Mac has no yt-dlp, Play downloads the official release on first start, about 54 MB. `open -a Play <YouTube link>` opens a link.
+
+Above 1080p, Play needs AV1, which Safari's engine plays only on Macs that decode it in hardware (M3 and later). Other Macs get H.264 up to 1080p.
+
 <details>
 <summary><b>Run from source instead</b></summary>
 
@@ -187,6 +201,8 @@ sequenceDiagram
 | `public` | Interface; plain JavaScript and CSS with no build step |
 | `windows/Play.cs` | Native window and server lifecycle |
 | `windows/Setup.cs` | Installer |
+| `mac/Play.swift` | Native Mac window and server lifecycle |
+| `mac/guard.mjs` | Stops the server when the Mac app exits or crashes |
 
 </details>
 
@@ -217,6 +233,8 @@ The build uses `csc.exe`, the C# compiler included with Windows, and the `Micros
 |---|---|
 | `powershell -ExecutionPolicy Bypass -File windows\build.ps1` | `Play.exe` in the repository root |
 | `powershell -ExecutionPolicy Bypass -File windows\installer.ps1` | `dist\Play-Setup-<version>.exe` |
+
+On a Mac, `bash mac/build.sh` makes `dist/Play.app` and `dist/Play-<version>-<arch>.dmg`; `ARCH=x64 bash mac/build.sh` builds for Intel. It bundles the official Node.js and stops if its checksum or signature is wrong.
 
 The version comes from `package.json`. The installer script also stops if user data ends up in the package.
 

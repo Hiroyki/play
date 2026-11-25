@@ -3,6 +3,7 @@ import { Player } from './player.js';
 import { Preview, bigThumb, calm, drag, intro, loadImage, transition } from './fx.js';
 
 const $ = (s) => document.querySelector(s);
+const DEVICE = /^Mac/.test(navigator.platform) ? 'Mac' : 'PC';
 const view = $('#view');
 const dock = $('#dock');
 const player = new Player();
@@ -167,7 +168,7 @@ function undock() {
   player.dock(!pip);
   dock.classList.toggle('on', !pip);
 }
-// Dipakai tombol taskbar di aplikasi Windows.
+// Dipakai tombol taskbar di aplikasi Windows dan menu di aplikasi Mac.
 window.playHasNext = () => !!(player.id && player.next);
 window.playNext = () => player.next && player.onnext(player.next);
 player.onexpand = () => go(`/watch?v=${player.id}${player.list ? '&list=' + player.list : ''}`);
@@ -481,7 +482,7 @@ function savedPage() {
   return { node: [pageHead('Simpanan', `${lib.saved.length} video buat nanti`), h('div', { class: 'grid' }, lib.saved.map((v) => card(v)))] };
 }
 function historyPage() {
-  const empty = () => notice('Belum ada riwayat', 'Video yang kamu tonton tercatat di sini, cuma di PC ini.');
+  const empty = () => notice('Belum ada riwayat', `Video yang kamu tonton tercatat di sini, cuma di ${DEVICE} ini.`);
   const list = h('div', {});
   const clear = h('button', { class: 'btn', type: 'button' }, 'Hapus semua');
   let armed;
@@ -520,7 +521,7 @@ function historyPage() {
     box.append(c);
   }
   if (!lib.history.length) return { node: [pageHead('Riwayat'), empty()] };
-  return { node: [pageHead('Riwayat', `${lib.history.length} video, cuma tersimpan di PC ini`, clear), list] };
+  return { node: [pageHead('Riwayat', `${lib.history.length} video, cuma tersimpan di ${DEVICE} ini`, clear), list] };
 }
 
 // ---------- pengaturan ----------
@@ -546,7 +547,6 @@ function twice(label, sure, run) {
   } }, label);
   return b;
 }
-const UPDATE = 'pip install -U "yt-dlp[default]"';
 function copyButton(text, label) {
   return h('button', { class: 'btn', type: 'button', onclick: async () => {
     try {
@@ -640,11 +640,11 @@ function settingsPage() {
       const v = await api('/version');
       if (!fresh()) return;
       const own = v.owned || (!v.have && !v.job);
-      const get = h('button', { class: 'btn', type: 'button', onclick: () => fetchYtdlp(get, () => fresh() && route()) }, v.have ? 'Perbarui' : 'Pasang (23 MB)');
+      const get = h('button', { class: 'btn', type: 'button', onclick: () => fetchYtdlp(get, () => fresh() && route()) }, v.have ? 'Perbarui' : `Pasang (${v.size} MB)`);
       if (v.job?.phase === 'unduh') fetchYtdlp(get, () => fresh() && route());
       ver.replaceChildren(h('span', {}, h('strong', {}, v.have ? 'Versi ' + v.have : 'Belum terpasang'),
         h('span', { class: 'meta' }, !v.have ? 'Video tidak bisa diputar tanpa yt-dlp.' : v.outdated ? `Versi ${v.latest} sudah ada. Versi lama bisa membuat video gagal diputar.` : v.latest ? 'Sudah yang terbaru.' : 'Versi terbaru belum bisa diperiksa.')),
-        ...(v.outdated || !v.have ? [own || v.job ? get : copyButton(UPDATE, 'Salin perintah update')] : []));
+        ...(v.outdated || !v.have ? [own || v.job ? get : copyButton(v.update, 'Salin perintah update')] : []));
     },
   };
 }
@@ -827,7 +827,7 @@ setTimeout(async () => {
   if (!v || !(v.outdated || !v.have)) return;
   // Baru dipasang lewat installer: siapkan sendiri.
   if (v.auto) {
-    toast('Menyiapkan yt-dlp, sekitar 23 MB');
+    toast(`Menyiapkan yt-dlp, sekitar ${v.size} MB`);
     return fetchYtdlp(null);
   }
   gear.classList.add('dot');

@@ -2,15 +2,19 @@
 // Urutan: variabel YTDLP, salinan milik Play (folder bin), lalu yang ada di PATH.
 import { execFile } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { existsSync } from 'node:fs';
+import { existsSync, realpathSync } from 'node:fs';
 import { mkdir, open, rename, rm } from 'node:fs/promises';
-import { join } from 'node:path';
+import { delimiter, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const BIN = process.env.PLAY_BIN || fileURLToPath(new URL('../data/bin', import.meta.url));
-const OWN = join(BIN, 'yt-dlp.exe');
+const MAC = process.platform === 'darwin';
+// Di Mac yang dipakai versi zip: yt-dlp_macos satu file membongkar dirinya tiap kali dipanggil, sekitar 9 detik.
+const DIR = join(BIN, 'yt-dlp_macos');
+const OWN = MAC ? join(DIR, 'yt-dlp_macos') : join(BIN, 'yt-dlp.exe');
 const BASE = process.env.PLAY_YTDLP_URL || 'https://github.com/yt-dlp/yt-dlp/releases/latest/download';
-const NAME = 'yt-dlp.exe';
+const NAME = MAC ? 'yt-dlp_macos.zip' : 'yt-dlp.exe';
+const SIZE = MAC ? 54 : 23; // MB, untuk ditampilkan
 
 export const command = () => process.env.YTDLP || (existsSync(OWN) ? OWN : 'yt-dlp');
 const owned = () => !process.env.YTDLP && existsSync(OWN);
@@ -19,6 +23,19 @@ export const runtimeArgs = ['--js-runtimes', 'node:' + process.execPath];
 
 const run = (args, timeout = 20_000) =>
   new Promise((ok) => execFile(command(), args, { timeout, windowsHide: true }, (e, out) => ok(e ? null : out.trim())));
+
+// Cara memperbarui yt-dlp yang bukan milik Play.
+function updateCommand() {
+  if (MAC)
+    for (const d of (process.env.PATH ?? '').split(delimiter)) {
+      const f = join(d, 'yt-dlp');
+      if (d && existsSync(f)) {
+        if (realpathSync(f).includes('/Cellar/')) return 'brew upgrade yt-dlp';
+        break;
+      }
+    }
+  return `${MAC ? 'python3 -m pip' : 'pip'} install -U "yt-dlp[default]"`;
+}
 
 // ---------- versi ----------
 let latest = { at: 0, v: null };
@@ -50,6 +67,8 @@ export async function version() {
     // Versi terpasang lewat installer memasang yt-dlp sendiri kalau belum ada.
     auto: !have && !owned() && !!process.env.PLAY_INSTALLED,
     job,
+    size: SIZE,
+    update: updateCommand(),
   };
 }
 
@@ -65,11 +84,11 @@ const get = async (file, ms) => {
 async function download() {
   await mkdir(BIN, { recursive: true });
   const sums = await (await get('SHA2-256SUMS', 20_000)).text();
-  const want = sums.match(/^([0-9a-f]{64})\s+\*?yt-dlp\.exe\s*$/im)?.[1]?.toLowerCase();
+  const want = sums.match(new RegExp(`^([0-9a-f]{64})\\s+\\*?${NAME.replace(/\./g, '\\.')}\\s*$`, 'im'))?.[1]?.toLowerCase();
   if (!want) throw new Error('Daftar checksum tidak memuat ' + NAME);
   const r = await get(NAME, 15 * 60_000);
   job.total = Number(r.headers.get('content-length')) || 0;
-  const tmp = OWN + '.unduh';
+  const tmp = join(BIN, NAME + '.unduh');
   const hash = createHash('sha256');
   const file = await open(tmp, 'w');
   try {
@@ -85,7 +104,21 @@ async function download() {
     await rm(tmp, { force: true });
     throw new Error('File yang diunduh tidak cocok dengan checksum resminya, jadi dibuang.');
   }
-  await rename(tmp, OWN);
+  if (!MAC) return rename(tmp, OWN);
+  // Dibongkar di sebelahnya dulu, jadi yang lama tetap utuh kalau gagal di tengah jalan.
+  const fresh = DIR + '.baru';
+  try {
+    await rm(fresh, { recursive: true, force: true });
+    await new Promise((ok, no) => execFile('/usr/bin/ditto', ['-xk', tmp, fresh], (e) => (e ? no(new Error('File yang diunduh tidak bisa dibuka.')) : ok())));
+    if (!existsSync(join(fresh, 'yt-dlp_macos'))) throw new Error('Isi file yang diunduh tidak sesuai.');
+    // macOS memeriksa isinya saat pertama dijalankan, sekitar 9 detik; lakukan sekarang.
+    await new Promise((ok, no) => execFile(join(fresh, 'yt-dlp_macos'), ['--ignore-config', '--version'], { timeout: 120_000 }, (e) => (e ? no(new Error('yt-dlp tidak bisa dijalankan di Mac ini.')) : ok())));
+    await rm(DIR, { recursive: true, force: true });
+    await rename(fresh, DIR);
+  } finally {
+    await rm(tmp, { force: true });
+    await rm(fresh, { recursive: true, force: true });
+  }
 }
 
 // Aman dipanggil berkali-kali; yang sedang berjalan dipakai bersama.
