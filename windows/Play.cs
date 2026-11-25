@@ -317,7 +317,7 @@ static class Uninstall
     public static void Run(bool quiet)
     {
         if (!Program.Installed) return; // folder kerja pengembang tidak boleh ikut terhapus
-        if (!quiet && MessageBox.Show("Hapus Play dari PC ini?\n\nLangganan, simpanan, dan riwayat tetap ada di\n" + Program.Data, "Play", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+        if (!quiet && MessageBox.Show("Remove Play from this PC?\n\nYour subscriptions, saved videos, and history stay in\n" + Program.Data, "Play", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
         int me = Process.GetCurrentProcess().Id;
         string exe = Application.ExecutablePath;
         foreach (Process p in Process.GetProcessesByName("Play"))
@@ -350,7 +350,7 @@ static class Uninstall
         si.UseShellExecute = false;
         si.WorkingDirectory = Path.GetTempPath();
         Process.Start(si);
-        if (!quiet) MessageBox.Show("Play sudah dihapus.", "Play", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        if (!quiet) MessageBox.Show("Play was removed.", "Play", MessageBoxButtons.OK, MessageBoxIcon.Information);
     }
     static string Target(string lnk)
     {

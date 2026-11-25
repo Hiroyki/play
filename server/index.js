@@ -115,4 +115,5 @@ app.listen(PORT, '127.0.0.1', (err) => {
     process.exit(1);
   }
   console.log(`Play jalan di http://localhost:${PORT}`);
+  ytdlp.ready().catch(() => {}); // sudah dicatat saat gagal
 });

@@ -97,14 +97,15 @@ Sponsor segments that creators record into a video are part of the stream and st
 
 1. Download `Play-Setup-<version>.exe` from [Releases](https://github.com/Hiroyki/play/releases/latest).
 2. Check that its SHA-256 matches the one in the release notes.
-3. Run it. No administrator rights are needed; Play is installed to `%LOCALAPPDATA%\Programs\Play`.
+3. Run it. If SmartScreen shows "Windows protected your PC", choose **More info**, then **Run anyway**.
+4. Follow the wizard: **Next**, choose a folder, **Install**, **Finish**. No administrator rights are needed; the default folder is `%LOCALAPPDATA%\Programs\Play`.
 
 Requirements: 64-bit Windows 11, where Play is tested. Windows 10 is untested and needs the [WebView2 Runtime](https://developer.microsoft.com/microsoft-edge/webview2/).
 
-If the PC has no yt-dlp, Play downloads the official release on first start and verifies its SHA-256 before using it.
+If the PC has no yt-dlp, Play downloads the official release on first start, about 23 MB, and verifies its SHA-256 before using it. A video opened during the download waits and then starts by itself.
 
 > [!NOTE]
-> The installer is not code-signed, so SmartScreen shows a warning.
+> The installer is not code-signed. SmartScreen warns about it, and Smart App Control, where it is on, can block it without a way to continue.
 
 To remove Play, use **Settings > Apps**. Your data stays in `%LOCALAPPDATA%\Play`.
 

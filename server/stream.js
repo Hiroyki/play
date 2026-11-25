@@ -2,7 +2,7 @@
 import { execFile } from 'node:child_process';
 import { Readable } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
-import { command, runtimeArgs } from './ytdlp.js';
+import { command, ready, runtimeArgs } from './ytdlp.js';
 
 const fail = (status, message) => Object.assign(new Error(message), { status });
 
@@ -54,8 +54,11 @@ async function slot(fn) {
 function resolve(id, fresh = false) {
   const hit = store.get(id);
   if (hit && hit.until > Date.now() && !(fresh && Date.now() - hit.at > 15_000)) return hit.promise;
-  const entry = { at: Date.now(), until: Date.now() + 120_000 };
-  entry.promise = slot(() => run(id)).then(prepare).then(
+  const entry = { at: Date.now(), until: Infinity };
+  entry.promise = ready().then(() => {
+    entry.until = Date.now() + 120_000; // menunggu yt-dlp dipasang tidak dihitung
+    return slot(() => run(id));
+  }).then(prepare).then(
     (v) => {
       const s = split(v);
       const complete = s.audio.length && (s.avc.length || s.av1.length);

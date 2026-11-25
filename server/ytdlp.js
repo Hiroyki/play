@@ -39,14 +39,16 @@ function older(a, b) {
   return false;
 }
 export async function version() {
-  const [have, want] = await Promise.all([run(['--ignore-config', '--version']), newest()]);
+  let [have, want] = await Promise.all([run(['--ignore-config', '--version']), newest()]);
+  // Bisa saja baru selesai dipasang selama menunggu.
+  if (!have && owned()) have = await run(['--ignore-config', '--version']);
   return {
     have,
     latest: want,
     outdated: !!(have && want && /^[\d.]+$/.test(have) && older(have, want)),
     owned: owned(),
     // Versi terpasang lewat installer memasang yt-dlp sendiri kalau belum ada.
-    auto: !have && !!process.env.PLAY_INSTALLED,
+    auto: !have && !owned() && !!process.env.PLAY_INSTALLED,
     job,
   };
 }
@@ -101,5 +103,19 @@ export function install() {
     }
   })();
   return { job };
+}
+
+// Versi terpasang lewat installer: yang butuh yt-dlp menunggu sampai unduhannya selesai.
+let onPath;
+export async function ready() {
+  if (!process.env.PLAY_INSTALLED || process.env.YTDLP || existsSync(OWN)) return;
+  if (!working) {
+    onPath ??= new Promise((ok) => execFile('yt-dlp', ['--ignore-config', '--version'], { timeout: 20_000, windowsHide: true }, (e) => ok(e?.code !== 'ENOENT')));
+    if (await onPath) return;
+    if (existsSync(OWN)) return;
+    install();
+  }
+  await working;
+  if (!existsSync(OWN)) throw Object.assign(new Error('yt-dlp gagal dipasang. ' + (job?.error ?? 'Coba lagi.')), { status: 503 });
 }
 export const progress = () => ({ job, have: existsSync(OWN) });

@@ -213,8 +213,11 @@ export class Player {
     this.chapter.textContent = '';
     try {
       await this.#unload();
-      const info = await api(`/play/${id}${fresh ? '?fresh=1' : ''}`);
+      const getting = api(`/play/${id}${fresh ? '?fresh=1' : ''}`);
+      this.#setup(getting, stale);
+      const info = await getting;
       if (stale()) return;
+      this.hideOverlay();
       this.#info = info;
       const seen = lib.seen(id);
       const from = at ?? (!info.live && seen?.position > 10 ? seen.position : undefined);
@@ -240,6 +243,26 @@ export class Player {
       if (!stale()) this.#fail(e);
     } finally {
       if (!stale() && v.readyState > 2) this.el.classList.remove('busy');
+    }
+  }
+
+  // Pemakaian pertama: tunjukkan unduhan yt-dlp selama video menunggu.
+  async #setup(getting, stale) {
+    let over = false;
+    getting.catch(() => {}).then(() => (over = true));
+    const text = h('p', { role: 'status' });
+    for (;;) {
+      await new Promise((r) => setTimeout(r, 700));
+      if (over || stale()) return;
+      const { job, have } = (await api('/ytdlp').catch(() => null)) ?? {};
+      if (over || stale()) return;
+      if (have || job?.phase !== 'unduh') {
+        if (text.isConnected) this.hideOverlay();
+        return;
+      }
+      const t = 'Menyiapkan Play untuk pertama kali' + (job.total ? `, ${Math.floor((job.done / job.total) * 100)}%` : '');
+      if (text.textContent !== t) text.textContent = t;
+      if (!text.isConnected) this.showOverlay(h('div', { class: 'fail' }, text));
     }
   }
 
