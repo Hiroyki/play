@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="id" class="intro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <title>Play</title>
+  <link rel="icon" href="/icon.svg?v=2" type="image/svg+xml">
+  <link rel="preload" href="/vendor/instrument/instrument-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/vendor/shaka.js" defer></script>
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#view">Langsung ke isi</a>
+  <header class="top">
+    <a class="brand" href="/" aria-label="Play, ke beranda">
+      <svg class="logo" viewBox="14 47 422 72" aria-hidden="true">
+        <path class="p" pathLength="1" d="M14 47H101C116 47 124 57 124 71.5S116 96 101 96H36V119H14V79H96.500A7.500 7.500 0 0 0 96.500 64H33C22 64 14 57 14 47Z"/>
+        <path class="l" pathLength="1" d="M134 47H155V93A8 8 0 0 0 163 101H221V119H155A21 21 0 0 1 134 98Z"/>
+        <path class="y" pathLength="1" d="M314 47H343L374 78L405 47H436L364 119H334L360 93Z"/>
+        <path class="tri" d="M235 47L311 83L235 119Z"/>
+      </svg>
+    </a>
+    <nav class="links" aria-label="Menu utama"></nav>
+    <button class="find" type="button" aria-haspopup="dialog"><span>Cari</span><kbd>/</kbd></button>
+  </header>
+  <main id="view" tabindex="-1"></main>
+  <div id="dock" role="region" aria-label="Pemutar kecil"></div>
+
+  <dialog id="finder" aria-label="Cari video">
+    <form role="search">
+      <input id="q" type="search" name="q" placeholder="Cari apa?" aria-label="Cari video" autocomplete="off" spellcheck="false" maxlength="200" role="combobox" aria-expanded="false" aria-controls="suggest" aria-autocomplete="list">
+      <button type="button" class="icon-btn" id="unfind" aria-label="Tutup pencarian"></button>
+    </form>
+    <ul id="suggest" role="listbox" aria-label="Saran pencarian"></ul>
+    <p class="hint">Tempel link YouTube juga bisa, langsung diputar.</p>
+  </dialog>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+  <div id="ident" aria-hidden="true">
+    <svg class="logo" viewBox="14 47 422 72">
+      <path class="p" pathLength="1" d="M14 47H101C116 47 124 57 124 71.5S116 96 101 96H36V119H14V79H96.500A7.500 7.500 0 0 0 96.500 64H33C22 64 14 57 14 47Z"/>
+      <path class="l" pathLength="1" d="M134 47H155V93A8 8 0 0 0 163 101H221V119H155A21 21 0 0 1 134 98Z"/>
+      <path class="y" pathLength="1" d="M314 47H343L374 78L405 47H436L364 119H334L360 93Z"/>
+      <path class="tri" d="M235 47L311 83L235 119Z"/>
+    </svg>
+  </div>
+</body>
+</html>

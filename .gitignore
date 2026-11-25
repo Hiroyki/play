@@ -1,0 +1,7 @@
+node_modules/
+data/
+dist/
+Play.exe
+windows/lib/
+*.log
+.env*
