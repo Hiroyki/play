@@ -19,6 +19,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Rational;
+import android.view.InputDevice;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowInsets;
@@ -295,6 +297,47 @@ public final class MainActivity extends Activity {
         if (pipAsked) leaveFull();
         pipAsked = false;
         root.requestApplyInsets();
+    }
+
+    // ---------- head unit ----------
+    // Banyak head unit melaporkan layar sentuhnya sebagai mouse. WebView lalu menganggap geseran sebagai
+    // blok teks, bukan gulir, sedangkan ketukan tetap jalan. Ubah jadi sentuhan jari sebelum sampai ke halaman.
+    private static boolean mouseLike(MotionEvent e, int i) {
+        int t = e.getToolType(i);
+        return t == MotionEvent.TOOL_TYPE_MOUSE || t == MotionEvent.TOOL_TYPE_UNKNOWN;
+    }
+    private static boolean fromMouse(MotionEvent e) {
+        for (int i = 0; i < e.getPointerCount(); i++) if (mouseLike(e, i)) return true;
+        return false;
+    }
+    private static MotionEvent asFinger(MotionEvent e) {
+        int n = e.getPointerCount();
+        MotionEvent.PointerProperties[] p = new MotionEvent.PointerProperties[n];
+        MotionEvent.PointerCoords[] c = new MotionEvent.PointerCoords[n];
+        for (int i = 0; i < n; i++) {
+            p[i] = new MotionEvent.PointerProperties();
+            e.getPointerProperties(i, p[i]);
+            if (mouseLike(e, i)) p[i].toolType = MotionEvent.TOOL_TYPE_FINGER;
+            c[i] = new MotionEvent.PointerCoords();
+            e.getPointerCoords(i, c[i]);
+        }
+        return MotionEvent.obtain(e.getDownTime(), e.getEventTime(), e.getAction(), n, p, c, e.getMetaState(), 0,
+                e.getXPrecision(), e.getYPrecision(), e.getDeviceId(), e.getEdgeFlags(), InputDevice.SOURCE_TOUCHSCREEN, e.getFlags());
+    }
+    @Override public boolean dispatchTouchEvent(MotionEvent e) {
+        if (!fromMouse(e)) return super.dispatchTouchEvent(e);
+        MotionEvent f = asFinger(e);
+        try {
+            return super.dispatchTouchEvent(f);
+        } finally {
+            f.recycle();
+        }
+    }
+    @Override public boolean dispatchGenericMotionEvent(MotionEvent e) {
+        int a = e.getActionMasked();
+        // Tombol "mouse" dari layar tadi sudah jadi ketukan; jangan sampai dihitung klik kedua.
+        if ((a == MotionEvent.ACTION_BUTTON_PRESS || a == MotionEvent.ACTION_BUTTON_RELEASE) && fromMouse(e)) return true;
+        return super.dispatchGenericMotionEvent(e);
     }
 
     // ---------- kembali ----------

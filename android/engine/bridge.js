@@ -1,5 +1,7 @@
 // Jembatan halaman ke aplikasi Android. Dimuat sebelum app.js.
 (() => {
+  // Di Android selalu dianggap layar sentuh, walaupun head unit mengaku punya mouse (lihat MainActivity).
+  document.documentElement.classList.add('touch');
   // WebView tidak punya Media Session; cukup untuk mencatat judul yang sedang diputar.
   if (!navigator.mediaSession) {
     window.MediaMetadata = class { constructor(m) { Object.assign(this, m); } };
