@@ -22,6 +22,12 @@
         <data android:mimeType="text/plain"/>
       </intent-filter>
     </activity>
+    <!-- Android Auto hanya menampilkan aplikasi media. Di mobil yang diputar cuma suaranya. -->
+    <meta-data android:name="com.google.android.gms.car.application" android:resource="@xml/automotive_app_desc"/>
+    <service android:name=".CarService" android:exported="true" android:foregroundServiceType="mediaPlayback">
+      <intent-filter><action android:name="android.media.browse.MediaBrowserService"/></intent-filter>
+    </service>
+    <provider android:name=".Art" android:authorities="io.github.hiroyki.play.art" android:exported="true"/>
     <service android:name=".PlayService" android:exported="false" android:foregroundServiceType="mediaPlayback" android:stopWithTask="true"/>
   </application>
 </manifest>

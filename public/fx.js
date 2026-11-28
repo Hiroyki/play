@@ -30,12 +30,19 @@ export async function bigThumb(id) {
 // Logo tergambar di tengah, lalu terbang ke tempatnya di bilah atas.
 export function intro() {
   const box = document.getElementById('ident');
+  let over = false;
   const done = () => {
+    if (over) return;
+    over = true;
     box.remove();
     root.classList.remove('intro');
   };
   if (calm.matches) return done();
+  // Logo di bilah atas tersembunyi sampai animasinya selesai. Kalau kabar selesainya tidak pernah datang
+  // (WebView lama di head unit), tetap tampilkan.
+  setTimeout(done, Math.max(0, 1500 - performance.now()) + 2500);
   setTimeout(() => {
+    if (over || !box.firstElementChild?.animate) return done();
     const svg = box.firstElementChild;
     const a = svg.getBoundingClientRect();
     const b = document.querySelector('.brand .logo').getBoundingClientRect();

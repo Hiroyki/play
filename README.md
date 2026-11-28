@@ -130,7 +130,7 @@ Requirements: macOS 13.5 or later. Tested on macOS 15.5 with an M1; the Intel bu
 2. Check that its SHA-256 matches the one in the release notes.
 3. Open it and allow installing from that source. If Play Protect warns, choose **More details > Install anyway**.
 
-Requirements: Android 8 or later with an up-to-date Android System WebView. Tested on one Android phone and on an Android emulator (API 37); older versions are untested. Share a link from another app to Play to open it. Data stays in the app and is removed with it, so export it in Settings first.
+Requirements: Android 8 or later with an up-to-date Android System WebView. Tested on one Android phone and on an Android emulator (API 37); older versions are untested. Share a link from another app to Play to open it. In Android Auto, Play appears as a media app and plays the sound only, because Android Auto does not allow video from the phone; for a sideloaded copy, turn on **Unknown sources** in the Android Auto developer settings. Data stays in the app and is removed with it, so export it in Settings first.
 
 The app is under 1 MB because it carries no Node.js and no yt-dlp. The same `server` code runs in the WebView that comes with Android, and stream addresses come from youtubei.js. When YouTube changes, a new version of the app is needed.
 

@@ -26,7 +26,6 @@ import android.view.ViewGroup;
 import android.view.WindowInsets;
 import android.view.WindowInsetsController;
 import android.view.WindowManager;
-import android.webkit.CookieManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.RenderProcessGoneDetail;
 import android.webkit.ValueCallback;
@@ -68,8 +67,7 @@ public final class MainActivity extends Activity {
         super.onCreate(b);
         current = this;
         if (Build.VERSION.SDK_INT >= 29) getWindow().setNavigationBarContrastEnforced(false);
-        root = new FrameLayout(this);
-        root.setBackgroundColor(Color.BLACK);
+        root = new FrameLayout(this); // tanpa latar: logo pembuka dari tema terlihat sampai halaman siap
         setContentView(root);
         if (Build.VERSION.SDK_INT >= 30) {
             getWindow().setDecorFitsSystemWindows(false);
@@ -82,10 +80,9 @@ public final class MainActivity extends Activity {
         }
         if (Build.VERSION.SDK_INT >= 33) getOnBackInvokedDispatcher().registerOnBackInvokedCallback(0, this::back);
         try {
-            if (server == null) {
-                engine = new Engine(getApplicationContext());
-                server = new Server(getApplicationContext(), engine);
-            }
+            Play.init(this);
+            server = Play.server;
+            engine = Play.engine;
         } catch (IOException e) {
             fail(e.getMessage());
             return;
@@ -100,9 +97,8 @@ public final class MainActivity extends Activity {
         }
         String p = pathOf(getIntent());
         boolean again = b != null && p == null;
-        CookieManager.getInstance().setCookie(server.origin(), server.cookie() + "; Path=/; HttpOnly; SameSite=Strict", ok -> {
+        Play.ready(this, () -> {
             if (web == null) return;
-            if (!engine.running()) engine.start(getApplicationContext(), server.origin());
             web.loadUrl(server.origin() + (again ? b.getString("path", "/") : p != null ? p : "/"));
         });
     }
@@ -112,6 +108,7 @@ public final class MainActivity extends Activity {
         t.setTextColor(Color.LTGRAY);
         t.setTextSize(16);
         t.setGravity(android.view.Gravity.CENTER);
+        t.setBackgroundColor(Color.BLACK);
         root.addView(t);
     }
 
@@ -125,6 +122,8 @@ public final class MainActivity extends Activity {
     private void build() {
         web = new Web(this);
         web.setBackgroundColor(Color.BLACK);
+        web.setAlpha(0); // tetap digambar, cuma belum kelihatan; logo pembuka di belakangnya
+        root.postDelayed(this::reveal, 10_000);
         web.setOverScrollMode(View.OVER_SCROLL_NEVER);
         WebSettings s = web.getSettings();
         s.setJavaScriptEnabled(true);
@@ -143,6 +142,7 @@ public final class MainActivity extends Activity {
                 if (r.isForMainFrame() && "https".equals(u.getScheme())) external(u);
                 return true;
             }
+            @Override public void onPageCommitVisible(WebView v, String url) { reveal(); }
             @Override public boolean onRenderProcessGone(WebView v, RenderProcessGoneDetail d) {
                 Log.w(Server.TAG, "webview: proses halaman berhenti");
                 engine.stop();
@@ -172,6 +172,9 @@ public final class MainActivity extends Activity {
             open(new Intent(Intent.ACTION_CREATE_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("application/json").putExtra(Intent.EXTRA_TITLE, m.find() ? m.group(1) : "play.json"), SAVE);
         });
         root.addView(web, new FrameLayout.LayoutParams(-1, -1));
+    }
+    private void reveal() {
+        if (web != null && web.getAlpha() < 1 && web.animate() != null) web.animate().alpha(1).setDuration(150);
     }
     /** File vendor disimpan lama di cache; buang begitu aplikasinya diperbarui. */
     private void clearOldCache() {
@@ -237,6 +240,8 @@ public final class MainActivity extends Activity {
         @JavascriptInterface public void pip() { runOnUiThread(() -> { pipAsked = true; enterPip(); }); }
     }
     static void command(String name) { command(name, 0); }
+    /** Android Auto mulai memutar: video di HP berhenti. */
+    static void pauseHere() { command("pause"); }
     static void command(String name, double v) {
         MainActivity a = current;
         if (a != null && a.web != null) a.web.evaluateJavascript("window.playCommand?.('" + name + "'," + v + ");0", null);

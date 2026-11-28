@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tampil seketika saat Play dibuka, sebelum halaman siap. Ukurannya sama dengan logo pembuka di halaman. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:drawable="@color/black"/>
+  <item android:gravity="center" android:width="@dimen/logo_w" android:height="@dimen/logo_h" android:drawable="@drawable/ic_logo"/>
+</layer-list>

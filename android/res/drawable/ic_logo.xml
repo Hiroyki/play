@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Logo PLAY dari public/index.html, untuk layar pembuka. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="230dp" android:height="39dp" android:viewportWidth="422" android:viewportHeight="72">
+  <group android:translateX="-14" android:translateY="-47">
+    <path android:fillColor="#fff" android:pathData="M14 47H101C116 47 124 57 124 71.5S116 96 101 96H36V119H14V79H96.500A7.500 7.500 0 0 0 96.500 64H33C22 64 14 57 14 47Z"/>
+    <path android:fillColor="#fff" android:pathData="M134 47H155V93A8 8 0 0 0 163 101H221V119H155A21 21 0 0 1 134 98Z"/>
+    <path android:fillColor="#fff" android:pathData="M314 47H343L374 78L405 47H436L364 119H334L360 93Z"/>
+    <path android:fillColor="#fff" android:pathData="M235 47L311 83L235 119Z"/>
+  </group>
+</vector>
